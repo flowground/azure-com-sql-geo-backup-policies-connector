@@ -1,0 +1,101 @@
+{
+    "title": "Azure SQL Database",
+    "description": "Provides read and update functionality for Azure SQL Database geo backup policies.",
+    "docsUrl": "",
+    "url": "https://api.apis.guru/v2/specs/azure.com/sql-geoBackupPolicies/2014-04-01/swagger.json",
+    "envVars": {
+        "OAUTH_CLIENT_ID": {
+            "description": "OAuth Client ID"
+        },
+        "OAUTH_CLIENT_SECRET": {
+            "description": "OAuth Client Secret"
+        }
+    },
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://management.azure.com/",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "azure_auth": {
+                "label": "Azure Active Directory OAuth2 Flow",
+                "viewClass": "OAuthFieldView"
+            }
+        },
+        "oauth2": {
+            "client_id": "{{OAUTH_CLIENT_ID}}",
+            "client_secret": "{{OAUTH_CLIENT_SECRET}}",
+            "auth_uri": "https://login.microsoftonline.com/common/oauth2/authorize"
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "GeoBackupPolicies_ListByDatabase": {
+            "main": "./lib/actions/GeoBackupPolicies_ListByDatabase.js",
+            "title": "Returns a list of geo backup policies.",
+            "description": "Returns a list of geo backup policies.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/GeoBackupPolicies_ListByDatabase.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "GeoBackupPolicies_Get": {
+            "main": "./lib/actions/GeoBackupPolicies_Get.js",
+            "title": "Gets a geo backup policy.",
+            "description": "Gets a geo backup policy.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/GeoBackupPolicies_Get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "GeoBackupPolicies_CreateOrUpdate": {
+            "main": "./lib/actions/GeoBackupPolicies_CreateOrUpdate.js",
+            "title": "Updates a database geo backup policy.",
+            "description": "Updates a database geo backup policy.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/GeoBackupPolicies_CreateOrUpdate.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}
